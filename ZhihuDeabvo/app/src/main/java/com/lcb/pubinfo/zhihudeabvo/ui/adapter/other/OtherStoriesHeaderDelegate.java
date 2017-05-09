@@ -1,0 +1,39 @@
+package com.lcb.pubinfo.zhihudeabvo.ui.adapter.other;
+
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.lcb.pubinfo.zhihudeabvo.R;
+import com.lcb.pubinfo.zhihudeabvo.bean.BaseItem;
+import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+/**
+ * Created by pubinfo on 2017/3/27.
+ */
+class OtherStoriesHeaderDelegate implements ItemViewDelegate<BaseItem> {
+    @Override
+    public int getItemViewLayoutId() {
+        return R.layout.item_other_story_header;
+    }
+
+    @Override
+    public boolean isForViewType(BaseItem item, int position) {
+        return item instanceof OtherStoriesHeader;
+    }
+
+    @Override
+    public void convert(ViewHolder holder, BaseItem baseItem, int position) {
+        OtherStoriesHeader storiesHeader = (OtherStoriesHeader) baseItem;
+        ImageView imageView = holder.getView(R.id.image);
+        TextView textView = holder.getView(R.id.title);
+        Glide.with(holder.getConvertView().getContext())
+                .load(storiesHeader.getUrl())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .centerCrop()
+                .into(imageView);
+        textView.setText(storiesHeader.getDescription());
+    }
+}
